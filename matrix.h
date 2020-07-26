@@ -12,7 +12,7 @@ public:
 	matrix(size_t row, size_t column);
 	~matrix();
 
-	void set(size_t x, size_t y, T value);
+	void set(size_t x, size_t y, T& value);
 	void set1(T val);
 	const T get(size_t x, size_t y) const;
 
@@ -21,7 +21,6 @@ public:
 
 	matrix operator+(const matrix& m) const;
 	matrix& operator=(const matrix& m);
-
 };
 
 template<typename T>
