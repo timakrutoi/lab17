@@ -36,4 +36,4 @@ std::ostream& operator<<(std::ostream& out, Matrix<T>& matrix) {
 	return out;
 }
 
-#include "matrix.tpp"
+#include "matrix.ipp"

@@ -14,8 +14,7 @@ inline Matrix<T>::Matrix(size_t row, size_t column) {
 		}
 	}
 	catch (std::bad_alloc& exception) {
-		std::cerr << "Error: bad_alloc detected: " << exception.what();
-		exit(-4);
+		throw "Error: bad_alloc detected";
 	}
 }
 
@@ -33,21 +32,14 @@ Matrix<T>::Matrix(const Matrix& m) {
 		}
 	}
 	catch (std::bad_alloc& exception) {
-		std::cerr << "Error: bad_alloc detected: " << exception.what();
-		exit(-4);
+		throw "Error: bad_alloc detected";
 	}
 }
 
 template<typename T>
 void Matrix<T>::set(size_t x, size_t y, T value) {
-	try {
-		if (x >= size_x || y >= size_y) throw 1;
-		if (x < 0 || y < 0) throw 1;
-	}
-	catch (int a) {
-		std::cerr << "Error: Invalid args";
-		return;
-	}
+	if (x >= size_x || y >= size_y) throw "Error: invalid args";
+
 	data[x][y] = value;
 }
 
@@ -62,14 +54,8 @@ void Matrix<T>::set1(T val) {
 
 template<typename T>
 const T Matrix<T>::get(size_t x, size_t y) const {
-	try {
-		if (x >= size_x || y >= size_y) throw 1;
-		if (x < 0 || y < 0) throw 1;
-	}
-	catch (int a) {
-		std::cerr << "Error: Invalid args";
-		exit(-a);
-	}
+	if (x >= size_x || y >= size_y) throw "Error: invalid args";
+
 	return data[x][y];
 }
 
@@ -85,13 +71,8 @@ const size_t Matrix<T>::columns() const {
 
 template<typename T>
 Matrix<T> Matrix<T>::operator+(const Matrix& m) const {
-	try {
-		if (!(size_x == m.size_x && size_y == m.size_y)) throw 2;
-	}
-	catch (int a) {
-		std::cerr << "Error: Matrix must be equal sizes";
-		exit(-a);
-	}
+	if (!(size_x == m.size_x && size_y == m.size_y)) throw "Error: matrix must be equal sizes to do '*'";
+
 	Matrix<T> temp(*this);
 
 	for (size_t i = 0; i < size_x; i++) {
@@ -122,10 +103,8 @@ Matrix<T>& Matrix<T>::operator=(const Matrix& m) {
 			}
 		}
 	}
-
 	catch (std::bad_alloc& exception) {
-		std::cerr << "Error: bad_alloc detected: " << exception.what();
-		exit(-4);
+		throw "Error: bad_alloc detected";
 	}
 
 	return *this;
