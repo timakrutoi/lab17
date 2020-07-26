@@ -55,13 +55,13 @@ int main() {
 		std::cout << m_point << std::endl;
 	}
 	catch (std::bad_alloc& e) {
-		std::cerr << e.what();
+		std::cerr << "Error: " << e.what();
 	}
 	catch (std::out_of_range& e) {
-		std::cerr << e.what();
+		std::cerr << "Error: " << e.what();
 	}
 	catch (std::logic_error& e) {
-		std::cerr << e.what();
+		std::cerr << "Error: " << e.what();
 	}
 
 	return 0;
