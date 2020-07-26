@@ -22,16 +22,18 @@ public:
 	Matrix operator+(const Matrix& m) const;
 	Matrix& operator=(const Matrix& m);
 
-	friend std::ostream& operator<<(std::ostream& out, Matrix<T>& matrix) {
-		for (size_t i = 0; i < matrix.rows(); i++) {
-			out << "[ ";
-			for (size_t j = 0; j < matrix.columns(); j++) {
-				out << matrix.get(i, j) << " ";
-			}
-			out << "]" << std::endl;
-		}
-		return out;
-	}
 };
+
+template<typename T>
+std::ostream& operator<<(std::ostream& out, Matrix<T>& matrix) {
+	for (size_t i = 0; i < matrix.rows(); i++) {
+		out << "[ ";
+		for (size_t j = 0; j < matrix.columns(); j++) {
+			out << matrix.get(i, j) << " ";
+		}
+		out << "]" << std::endl;
+	}
+	return out;
+}
 
 #include "matrix.tpp"

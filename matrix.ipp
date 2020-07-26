@@ -105,6 +105,7 @@ Matrix<T> Matrix<T>::operator+(const Matrix& m) const {
 
 template<typename T>
 Matrix<T>& Matrix<T>::operator=(const Matrix& m) {
+	if (this == &m) return *this;
 	for (size_t i = 0; i < size_x; i++) {
 		delete[] data[i];
 	}
@@ -149,4 +150,5 @@ Matrix<T>::~Matrix() {
 	}
 
 	delete[] data;
+    data = nullptr;
 }
