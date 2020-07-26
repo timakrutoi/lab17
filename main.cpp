@@ -1,17 +1,17 @@
 #include "matrix.h"
 
-typedef struct Point {
+typedef struct point {
 	int x, y, z;
 
-	Point() {
+	point() {
 		x = 0; y = 0; z = 0;
 	}
 
-	Point(int a) {
+	point(int a) {
 		x = a; y = a; z = a;
 	}
 
-	Point& operator+(const Point& p) {
+	point& operator+(const point& p) {
 		x += p.x;
 		y += p.y;
 		z += p.z;
@@ -20,7 +20,7 @@ typedef struct Point {
 	}	
 }Point;
 
-std::ostream& operator<<(std::ostream& out, const Point& p) {
+std::ostream& operator<<(std::ostream& out, const point& p) {
 	out << "(" << p.x << ";" << p.y << ";" << p.z << ")";
 	return out;
 }
@@ -30,7 +30,7 @@ int main() {
 	matrix<int> m_int(3, 3);
 	matrix<double> m_double(3, 3);
 	matrix<char> m_char(3, 3);
-	matrix<Point> m_point(3, 3);
+	matrix<point> m_point(3, 3);
 
 	m_int.set1(9);
 	m_double.set1(3.14);
