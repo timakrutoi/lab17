@@ -1,7 +1,7 @@
 #include "matrix.h"
 
 template<typename T>
-inline Matrix<T>::Matrix(size_t row, size_t column) {
+inline matrix<T>::matrix(size_t row, size_t column) {
 	try{
 		size_x = column; size_y = row;
 		data = new T * [size_x];
@@ -19,7 +19,7 @@ inline Matrix<T>::Matrix(size_t row, size_t column) {
 }
 
 template<typename T>
-Matrix<T>::Matrix(const Matrix& m) {
+matrix<T>::matrix(const matrix& m) {
 	try{
 		size_x = m.size_x; size_y = m.size_y;
 		data = new T * [size_x];
@@ -37,14 +37,14 @@ Matrix<T>::Matrix(const Matrix& m) {
 }
 
 template<typename T>
-void Matrix<T>::set(size_t x, size_t y, T value) {
+void matrix<T>::set(size_t x, size_t y, T value) {
 	if (x >= size_x || y >= size_y) throw "Error: invalid args";
 
 	data[x][y] = value;
 }
 
 template<typename T>
-void Matrix<T>::set1(T val) {
+void matrix<T>::set1(T val) {
 	for (size_t i = 0; i < size_x; i++) {
 		for (size_t j = 0; j < size_y; j++) {
 			data[i][j] = val;
@@ -53,27 +53,27 @@ void Matrix<T>::set1(T val) {
 }
 
 template<typename T>
-const T Matrix<T>::get(size_t x, size_t y) const {
+const T matrix<T>::get(size_t x, size_t y) const {
 	if (x >= size_x || y >= size_y) throw "Error: invalid args";
 
 	return data[x][y];
 }
 
 template<typename T>
-const size_t Matrix<T>::rows() const {
+const size_t matrix<T>::rows() const {
 	return size_y;
 }
 
 template<typename T>
-const size_t Matrix<T>::columns() const {
+const size_t matrix<T>::columns() const {
 	return size_x;
 }
 
 template<typename T>
-Matrix<T> Matrix<T>::operator+(const Matrix& m) const {
+matrix<T> matrix<T>::operator+(const matrix& m) const {
 	if (!(size_x == m.size_x && size_y == m.size_y)) throw "Error: matrix must be equal sizes to do '*'";
 
-	Matrix<T> temp(*this);
+	matrix<T> temp(*this);
 
 	for (size_t i = 0; i < size_x; i++) {
 		for (size_t j = 0; j < size_y; j++) {
@@ -85,7 +85,7 @@ Matrix<T> Matrix<T>::operator+(const Matrix& m) const {
 }
 
 template<typename T>
-Matrix<T>& Matrix<T>::operator=(const Matrix& m) {
+matrix<T>& matrix<T>::operator=(const matrix& m) {
 	if (this == &m) return *this;
 	for (size_t i = 0; i < size_x; i++) {
 		delete[] data[i];
@@ -123,7 +123,7 @@ Matrix<T>& Matrix<T>::operator=(const Matrix& m) {
 //}
 
 template<typename T>
-Matrix<T>::~Matrix() {
+matrix<T>::~matrix() {
 	for (size_t i = 0; i < size_x; i++) {
 		delete[] data[i];
 	}

@@ -27,10 +27,10 @@ std::ostream& operator<<(std::ostream& out, const Point& p) {
 
 
 int main() {
-	Matrix<int> m_int(3, 3);
-	Matrix<double> m_double(3, 3);
-	Matrix<char> m_char(3, 3);
-	Matrix<Point> m_point(3, 3);
+	matrix<int> m_int(3, 3);
+	matrix<double> m_double(3, 3);
+	matrix<char> m_char(3, 3);
+	matrix<Point> m_point(3, 3);
 
 	m_int.set1(9);
 	m_double.set1(3.14);
