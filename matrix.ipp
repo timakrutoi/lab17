@@ -128,5 +128,5 @@ matrix<T>::~matrix() {
 	delete[] data[0];
 	delete[] data;
 
-    data = nullptr;
+	data = nullptr;
 }
