@@ -5,21 +5,20 @@ inline matrix<T>::matrix(size_t row, size_t column) {
 	try{
 		size_x = column; size_y = row;
 		data = new T * [size_x];
+		T* raw_data = new T[size_x * size_y];
 
 		for (size_t i = 0; i < size_x; i++) {
-			data[i] = new T[size_y];
+			data[i] = raw_data + i * size_y;
 			for (size_t j = 0; j < size_y; j++) {
 				data[i][j] = 0;
 			}
 		}
 	}
 	catch (std::bad_alloc&) {
-		for (size_t i = 0; i < size_x; i++) {
-			delete[] data[i];
-		}
+		delete[] data[0];
 		delete[] data;
 
-		throw std::bad_alloc();
+		throw;
 	}
 }
 
@@ -28,21 +27,20 @@ matrix<T>::matrix(const matrix& m) {
 	try{
 		size_x = m.size_x; size_y = m.size_y;
 		data = new T * [size_x];
+		T* raw_data = new T[size_x * size_y];
 
 		for (size_t i = 0; i < size_x; i++) {
-			data[i] = new T[size_y];
+			data[i] = raw_data + i * size_y;
 			for (size_t j = 0; j < size_y; j++) {
 				data[i][j] = m.data[i][j];
 			}
 		}
 	}
 	catch (std::bad_alloc&) {
-		for (size_t i = 0; i < size_x; i++) {
-			delete[] data[i];
-		}
+		delete[] data[0];
 		delete[] data;
 		
-		throw std::bad_alloc();
+		throw;
 	}
 }
 
@@ -97,9 +95,7 @@ matrix<T> matrix<T>::operator+(const matrix& m) const {
 template<typename T>
 matrix<T>& matrix<T>::operator=(const matrix& m) {
 	if (this == &m) return *this;
-	for (size_t i = 0; i < size_x; i++) {
-		delete[] data[i];
-	}
+	delete[] data[0];
 	delete[] data;
 
 	try {
@@ -119,7 +115,7 @@ matrix<T>& matrix<T>::operator=(const matrix& m) {
 		}
 		delete[] data;
 		
-		throw std::bad_alloc();
+		throw;
 	}
 
 	return *this;
@@ -128,10 +124,9 @@ matrix<T>& matrix<T>::operator=(const matrix& m) {
 template<typename T>
 matrix<T>::~matrix() {
 	if (!data) return;
-	for (size_t i = 0; i < size_x; i++) {
-		delete[] data[i];
-	}
 
+	delete[] data[0];
 	delete[] data;
+
     data = nullptr;
 }
