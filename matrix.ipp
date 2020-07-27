@@ -133,5 +133,5 @@ matrix<T>::~matrix() {
 	}
 
 	delete[] data;
-    data = nullptr;
+        data = nullptr;
 }
