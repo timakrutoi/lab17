@@ -127,6 +127,10 @@ matrix<T>::~matrix() {
 
 	delete[] data[0];
 	delete[] data;
+<<<<<<< HEAD
 
     data = nullptr;
+=======
+        data = nullptr;
+>>>>>>> 16c6119cbc3b490178e9ed542eb8077b9ba06fb9
 }
