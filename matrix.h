@@ -13,7 +13,7 @@ public:
 	~matrix();
 
 	void set(size_t x, size_t y, T& value);
-	void set1(T val);
+	void set(T val);
 	const T get(size_t x, size_t y) const;
 
 	const size_t rows() const;
@@ -22,17 +22,5 @@ public:
 	matrix operator+(const matrix& m) const;
 	matrix& operator=(const matrix& m);
 };
-
-template<typename T>
-std::ostream& operator<<(std::ostream& out, matrix<T>& matrix) {
-	for (size_t i = 0; i < matrix.rows(); i++) {
-		out << "[ ";
-		for (size_t j = 0; j < matrix.columns(); j++) {
-			out << matrix.get(i, j) << " ";
-		}
-		out << "]" << std::endl;
-	}
-	return out;
-}
 
 #include "matrix.ipp"

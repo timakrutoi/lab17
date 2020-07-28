@@ -27,19 +27,19 @@ std::ostream& operator<<(std::ostream& out, const point& p) {
 
 template<typename T>
 void test_(matrix<T>& m, T arg) {
-	m.set1(arg);
+	m.set(arg);
 	std::cout << m << std::endl;
 	m = m + m;
 	std::cout << m << std::endl;
-	std::cout << "===================================================" << std::endl << std::endl;
+	std::cout << "===========================" << std::endl << std::endl;
 }
 
 int main() {
 	try {
-		matrix<int> m_int(3, 3);
-		matrix<double> m_double(3, 3);
-		matrix<char> m_char(3, 3);
-		matrix<point> m_point(3, 3);
+		matrix<int> m_int(3, 5);
+		matrix<double> m_double(3, 5);
+		matrix<char> m_char(3, 5);
+		matrix<point> m_point(3, 5);
 
 		test_(m_int, 9);
 		test_(m_double, 3.14);
