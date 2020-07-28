@@ -35,7 +35,6 @@ matrix<T>::matrix(const matrix& m) {
 		}
 	}
 	catch (std::bad_alloc&) {
-		delete[] data[0];
 		delete[] data;
 		
 		throw;
@@ -99,18 +98,16 @@ matrix<T>& matrix<T>::operator=(const matrix& m) {
 	try {
 		size_x = m.size_x; size_y = m.size_y;
 		data = new T * [size_x];
+		T* raw_data = new T[size_x * size_y];
 
 		for (size_t i = 0; i < size_x; i++) {
-			data[i] = new T[size_y];
+			data[i] = raw_data + i * size_y;
 			for (size_t j = 0; j < size_y; j++) {
 				data[i][j] = m.data[i][j];
 			}
 		}
 	}
 	catch (std::bad_alloc&) {
-		for (size_t i = 0; i < size_x; i++) {
-			delete[] data[i];
-		}
 		delete[] data;
 		
 		throw;
@@ -122,7 +119,7 @@ matrix<T>& matrix<T>::operator=(const matrix& m) {
 template<typename T>
 std::ostream& operator<<(std::ostream& out, matrix<T>& matrix) {
 	out << "[ ";
-	for (int i = 0; i < matrix.rows() * matrix.columns(); i++) {
+	for (size_t i = 0; i < matrix.rows() * matrix.columns(); i++) {
 		if (i % matrix.columns() == 0 && i > 0) out << "]\n[ ";
 		out << matrix.get(i / matrix.rows(), i / matrix.columns()) << " ";
 	}
