@@ -1,4 +1,5 @@
-﻿#pragma once
+﻿#ifndef MATRIX_H
+#define MATRIX_H
 #include <iostream>
 
 template<typename T>
@@ -23,4 +24,5 @@ public:
 	matrix& operator=(const matrix& m);
 };
 
-#include "matrix.ipp"
+#include "matrix.tpp"
+#endif

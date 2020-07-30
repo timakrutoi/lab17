@@ -15,9 +15,8 @@ typedef struct point {
 		x += p.x;
 		y += p.y;
 		z += p.z;
-
 		return *this;
-	}	
+	}
 }Point;
 
 std::ostream& operator<<(std::ostream& out, const point& p) {
