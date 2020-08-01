@@ -41,6 +41,7 @@ int main() {
 		//matrix<char> m_char(3, 5);
 		//matrix<point> m_point(3, 5);
 
+
 		test_(m_int, 9);
 		//test_(m_double, 3.14);
 		//test_(m_char, 'A');
