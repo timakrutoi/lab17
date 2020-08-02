@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CppUnitTest.h"
 #include "..\lab17\matrix.h"
+#include "..\lab17\point.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
