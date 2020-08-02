@@ -79,7 +79,6 @@ matrix<T> matrix<T>::operator+(const matrix& m) const {
 
 	matrix<T> temp(*this);
 
-
 	for (size_t i = 0; i < size_x; i++) {
 		for (size_t j = 0; j < size_y; j++) {
 			temp.data[i][j] = temp.data[i][j] + m.data[i][j];
