@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include <iostream>
+#include "point.h"
 
 template<typename T>
 class matrix {
@@ -12,7 +13,7 @@ public:
 	matrix(size_t row, size_t column);
 	~matrix();
 
-	void set(size_t x, size_t y, T& value);
+	T& set(size_t x, size_t y, T value);
 	void set(T val);
 	const T get(size_t x, size_t y) const;
 

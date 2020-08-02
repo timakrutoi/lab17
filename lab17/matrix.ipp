@@ -33,7 +33,7 @@ matrix<T>::matrix(const matrix& m) {
 		throw;
 	}
 	
-	for (size_t i = 1; i < size_x; i++) {
+	for (size_t i = 0; i < size_x; i++) {
 		data[i] = data[0] + i * size_y;
 		for (size_t j = 0; j < size_y; j++) {
 			data[i][j] = m.data[i][j];
@@ -42,10 +42,11 @@ matrix<T>::matrix(const matrix& m) {
 }
 
 template<typename T>
-void matrix<T>::set(size_t row, size_t column, T& value) {
+T& matrix<T>::set(size_t row, size_t column, T value) {
 	if (row >= size_x || column >= size_y) throw std::out_of_range("Invalid args( set )");
 
 	data[row][column] = value;
+	return data[row][column];
 }
 
 template<typename T>
@@ -91,7 +92,6 @@ matrix<T> matrix<T>::operator+(const matrix& m) const {
 template<typename T>
 matrix<T>& matrix<T>::operator=(const matrix& m) {
 	if (this == &m) return *this;
-	delete[] data[0];
 	delete[] data;
 	size_x = m.size_x; size_y = m.size_y;
 		
@@ -100,11 +100,11 @@ matrix<T>& matrix<T>::operator=(const matrix& m) {
 		data[0] = new T[size_x * size_y];
 	}
 	catch (std::bad_alloc&) {
-		delete[] data;		
+		delete[] data;
 		throw;
 	}
 
-	for (size_t i = 1; i < size_x; i++) {
+	for (size_t i = 0; i < size_x; i++) {
 		data[i] = data[0] + i * size_y;
 		for (size_t j = 0; j < size_y; j++) {
 			data[i][j] = m.data[i][j];
