@@ -1,6 +1,5 @@
 ﻿#pragma once
 #include <iostream>
-#include "point.h"
 
 template<typename T>
 class matrix {

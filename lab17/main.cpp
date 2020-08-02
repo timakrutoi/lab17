@@ -1,4 +1,5 @@
 #include "matrix.h"
+#include "point.h"
 
 template<typename T>
 void test_(matrix<T>& m, T arg) {
