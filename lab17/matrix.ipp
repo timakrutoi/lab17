@@ -1,15 +1,13 @@
 template<typename T>
 inline matrix<T>::matrix(size_t row, size_t column) {
 	size_x = row; size_y = column;
+	data = new T * [size_x];
 
-	try {
-		data = new T * [size_x];
+	try {		
 		data[0] = new T[size_x * size_y];
 	}
-	catch (std::bad_alloc&) {
-		delete[] data[0];
+	catch (const std::bad_alloc&) {
 		delete[] data;
-
 		throw;
 	}
 
@@ -22,14 +20,13 @@ inline matrix<T>::matrix(size_t row, size_t column) {
 template<typename T>
 matrix<T>::matrix(const matrix& m) {
 	size_x = m.size_x; size_y = m.size_y;
+	data = new T * [size_x];
 
 	try{
-		data = new T * [size_x];
 		data[0] = new T[size_x * size_y];
 	}
-	catch (std::bad_alloc&) {
-		delete[] data;
-		
+	catch (const std::bad_alloc&) {
+		delete[] data;		
 		throw;
 	}
 	
@@ -65,61 +62,63 @@ const T matrix<T>::get(size_t row, size_t column) const {
 
 template<typename T>
 const size_t matrix<T>::rows() const {
-	return size_y;
-}
-
-template<typename T>
-const size_t matrix<T>::columns() const {
 	return size_x;
 }
 
 template<typename T>
+const size_t matrix<T>::columns() const {
+	return size_y;
+}
+
+// fixed
+template<typename T>
 matrix<T> matrix<T>::operator+(const matrix& m) const {
 	if (!(size_x == m.size_x && size_y == m.size_y)) throw std::logic_error("Matrices must be equal sizes to do '+'");
 
-	matrix<T> temp(*this);
+	matrix<T> temp(size_x, size_y);
+	size_t temp_size = size_x * size_y;
 
-	for (size_t i = 0; i < size_x; i++) {
-		for (size_t j = 0; j < size_y; j++) {
-			temp.data[i][j] = temp.data[i][j] + m.data[i][j];
-		}
+	for (size_t i = 0; i < temp_size; i++) {
+		temp.data[i / size_y][i % size_y] = data[i / size_y][i % size_y] + m.data[i / size_y][i % size_y];
 	}
 
 	return temp;
 }
 
+// fixed
 template<typename T>
 matrix<T>& matrix<T>::operator=(const matrix& m) {
 	if (this == &m) return *this;
 	delete[] data;
 	size_x = m.size_x; size_y = m.size_y;
+	size_t temp_size = size_x * size_y;
+	data = new T * [size_x];
 		
 	try {
-		data = new T*[size_x];
 		data[0] = new T[size_x * size_y];
 	}
-	catch (std::bad_alloc&) {
+	catch (const std::bad_alloc&) {
 		delete[] data;
 		throw;
 	}
 
-	for (size_t i = 0; i < size_x; i++) {
-		data[i] = data[0] + i * size_y;
-		for (size_t j = 0; j < size_y; j++) {
-			data[i][j] = m.data[i][j];
-		}
+	for (size_t i = 0; i < temp_size; i++) {
+		if(i % size_y == 0 || i == 0) data[i / size_y] = data[0] + i;
+
+		data[i / size_y][i % size_y] = m.data[i / size_y][i % size_y];
 	}
 
 	return *this;
 }
 
+// fixed
 template<typename T>
 std::ostream& operator<<(std::ostream& out, matrix<T>& matrix) {
 	out << "[ ";
-	size_t size = matrix.rows() * matrix.columns();
+	size_t size = matrix.columns() * matrix.rows();
 	for (size_t i = 0; i < size; i++) {
-		if (i % matrix.columns() == 0 && i > 0) out << "]\n[ ";
-		out << matrix.get(i / matrix.rows(), i / matrix.columns()) << " ";
+		if (i % matrix.rows() == 0 && i > 0) out << "]\n[ ";
+		out << matrix.get(i / matrix.columns(), i % matrix.columns()) << " ";
 	}
 	out << "]" << std::endl;
 	return out;
