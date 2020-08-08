@@ -17,24 +17,25 @@ inline matrix<T>::matrix(size_t row, size_t column) {
 	}
 }
 
+// fixed
 template<typename T>
 matrix<T>::matrix(const matrix& m) {
 	size_x = m.size_x; size_y = m.size_y;
+	size_t temp_size = size_x * size_y;
 	data = new T * [size_x];
 
 	try{
-		data[0] = new T[size_x * size_y];
+		data[0] = new T[temp_size];
 	}
 	catch (const std::bad_alloc&) {
 		delete[] data;		
 		throw;
 	}
 	
-	for (size_t i = 0; i < size_x; i++) {
-		data[i] = data[0] + i * size_y;
-		for (size_t j = 0; j < size_y; j++) {
-			data[i][j] = m.data[i][j];
-		}
+	for (size_t i = 0; i < temp_size; i++) {
+		if (i % size_y == 0 || i == 0) data[i / size_y] = data[0] + i;
+
+		data[i / size_y][i % size_y] = m.data[i / size_y][i % size_y];
 	}
 }
 
@@ -95,7 +96,7 @@ matrix<T>& matrix<T>::operator=(const matrix& m) {
 	data = new T * [size_x];
 		
 	try {
-		data[0] = new T[size_x * size_y];
+		data[0] = new T[temp_size];
 	}
 	catch (const std::bad_alloc&) {
 		delete[] data;
