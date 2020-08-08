@@ -23,31 +23,28 @@ public:
 		Assert::AreEqual(m_1.get(1, 0), m_2.get(1, 0));
 		Assert::AreEqual(m_1.get(1, 1), m_2.get(1, 1));
 	}
-	TEST_METHOD(TestSetOne) {
-		matrix<int> m_1(2, 2);
-
-		Assert::AreEqual(m_1.set(size_t(0), size_t(1), 69), 69);
-	}
-	TEST_METHOD(TestGet) {
+	TEST_METHOD(TestSetOneGet) {
 		matrix<int> m_1(2, 2);
 		m_1.set(size_t(0), size_t(1), 69);
 
 		Assert::AreEqual(m_1.get(0, 1), 69);
 	}
 	TEST_METHOD(TestSetAll) {
-		matrix<int> m_1(2, 2);
+		matrix<int> m_1(2, 3);
 		m_1.set(69);
 
 		Assert::AreEqual(m_1.get(0, 0), 69);
 		Assert::AreEqual(m_1.get(0, 1), 69);
+		Assert::AreEqual(m_1.get(0, 2), 69);
 		Assert::AreEqual(m_1.get(1, 0), 69);
 		Assert::AreEqual(m_1.get(1, 1), 69);
+		Assert::AreEqual(m_1.get(1, 2), 69);
 	}
 	TEST_METHOD(TestRowsAndColumns) {
 		matrix<int> m_1(3, 5);
 
-		Assert::AreEqual(m_1.columns(), size_t(3));
-		Assert::AreEqual(m_1.rows(), size_t(5));
+		Assert::AreEqual(m_1.rows(), size_t(3));
+		Assert::AreEqual(m_1.columns(), size_t(5));
 	}
 	TEST_METHOD(TestAssignOperator) {
 		matrix<int> m_1(2, 2);
